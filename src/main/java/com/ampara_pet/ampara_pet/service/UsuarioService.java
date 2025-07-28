@@ -17,27 +17,24 @@ public class UsuarioService {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    // Cadastrar novo usuário
     public Usuario cadastrarUsuario(Usuario usuario) {
-        // Verificar se email já existe
+
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             throw new RuntimeException("Email já cadastrado");
         }
 
-        // Criptografar senha
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
         return usuarioRepository.save(usuario);
     }
 
-    // Fazer login
     public Usuario fazerLogin(String email, String senha) {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
 
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
 
-            // Verificar senha
+
             if (passwordEncoder.matches(senha, usuario.getSenha())) {
                 return usuario;
             }
@@ -46,34 +43,30 @@ public class UsuarioService {
         throw new RuntimeException("Email ou senha inválidos");
     }
 
-    // Buscar usuário por ID
+
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
-    // Listar todos os usuários
+
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
     }
 
-    // Buscar usuário por email
     public Usuario buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
-    // Verificar se usuário é admin
     public boolean isAdmin(Long usuarioId) {
         Usuario usuario = buscarPorId(usuarioId);
         return "ADMIN".equals(usuario.getTipo());
     }
 
-    // Atualizar usuário
     public Usuario atualizarUsuario(Long id, Usuario usuarioAtualizado) {
         Usuario usuario = buscarPorId(id);
 
-        // Atualizar campos
         if (usuarioAtualizado.getNome() != null) {
             usuario.setNome(usuarioAtualizado.getNome());
         }
@@ -87,7 +80,6 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    // Deletar usuário
     public void deletarUsuario(Long id) {
         if (!usuarioRepository.existsById(id)) {
             throw new RuntimeException("Usuário não encontrado");
