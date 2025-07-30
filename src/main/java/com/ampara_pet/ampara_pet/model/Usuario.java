@@ -75,14 +75,6 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -91,11 +83,4 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public boolean isAdmin() {
-        return "ADMIN".equals(this.tipo);
-    }
-
-    public boolean isVisitante() {
-        return "VISITANTE".equals(this.tipo);
-    }
 }

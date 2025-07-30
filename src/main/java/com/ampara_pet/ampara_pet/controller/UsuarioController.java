@@ -56,12 +56,6 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/tipo/{tipo}")
-    public ResponseEntity<List<Usuario>> listarPorTipo(@PathVariable String tipo) {
-        // TODO: Implementar no service se necessário
-        return ResponseEntity.ok().build();
-    }
-
     public static class LoginRequest {
         private String email;
         private String senha;

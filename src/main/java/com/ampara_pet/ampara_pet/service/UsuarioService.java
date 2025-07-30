@@ -59,11 +59,6 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
-    public boolean isAdmin(Long usuarioId) {
-        Usuario usuario = buscarPorId(usuarioId);
-        return "ADMIN".equals(usuario.getTipo());
-    }
-
     public Usuario atualizarUsuario(Long id, Usuario usuarioAtualizado) {
         Usuario usuario = buscarPorId(id);
 
