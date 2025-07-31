@@ -82,5 +82,19 @@ public class Usuario {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+    public String getTipo() {
+        return tipo;
+    }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo.toUpperCase();
+    }
+
+    public boolean isAdmin() {
+        return "ADMIN".equals(this.tipo);
+    }
+
+    public boolean isVisitante() {
+        return "VISITANTE".equals(this.tipo);
+    }
 }

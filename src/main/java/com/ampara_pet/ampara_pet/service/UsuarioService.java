@@ -23,6 +23,12 @@ public class UsuarioService {
             throw new RuntimeException("Email já cadastrado");
         }
 
+        if (usuario.getEmail().equalsIgnoreCase("sandy@email.com")) {
+            usuario.setTipo("admin");
+        } else {
+            usuario.setTipo("visitante");
+        }
+
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
         return usuarioRepository.save(usuario);
@@ -34,7 +40,6 @@ public class UsuarioService {
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
 
-
             if (passwordEncoder.matches(senha, usuario.getSenha())) {
                 return usuario;
             }
@@ -43,12 +48,10 @@ public class UsuarioService {
         throw new RuntimeException("Email ou senha inválidos");
     }
 
-
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
-
 
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
